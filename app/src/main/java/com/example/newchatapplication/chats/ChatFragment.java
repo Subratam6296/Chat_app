@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatFragment extends Fragment {
 
@@ -40,6 +41,7 @@ public class ChatFragment extends Fragment {
     private Query query;
     private DatabaseReference databaseReferenceChats, databaseReferenceUsers;
     private ChildEventListener childEventListener;
+    private List<String> usersIdList;
 
 
     public ChatFragment() {
@@ -74,6 +76,7 @@ public class ChatFragment extends Fragment {
         emptChatView = view.findViewById(R.id.emtChatTv);
 
         chatListModelArrayList = new ArrayList<>();
+        usersIdList = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setStackFromEnd(true);
@@ -141,7 +144,8 @@ public class ChatFragment extends Fragment {
 
         lastMessage = "";
         lastMessageTime = "";
-        unreadCount = "";
+        unreadCount = dataSnapshot.child(NodeNames.UNREAD_COUNT).getValue()==null?
+                "0": dataSnapshot.child(NodeNames.UNREAD_COUNT).getValue().toString();
 
 
 
@@ -155,7 +159,16 @@ public class ChatFragment extends Fragment {
                         snapshot.child(NodeNames.PHOTO).getValue().toString():"";
 
                 ChatListModel chatListModel = new ChatListModel(userId,fullname,photoName,lastMessage,unreadCount,lastMessageTime);
-                chatListModelArrayList.add(chatListModel);
+
+                if(isNew){
+                    chatListModelArrayList.add(chatListModel);
+                    usersIdList.add(userId);
+                }else{
+                    int indexOfClickedUser = usersIdList.indexOf(userId);
+                    chatListModelArrayList.set(indexOfClickedUser, chatListModel);
+
+                }
+
                 adapter.notifyDataSetChanged();
 
             }

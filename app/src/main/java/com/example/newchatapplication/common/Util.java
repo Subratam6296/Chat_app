@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import com.android.volley.AuthFailureError;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
@@ -154,6 +156,48 @@ public class Util {
             }
         });
 
+
+    }
+
+    public static void updateChatDetails(Context context, String currentUserId, String chatUserId){
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference chatRef = rootRef.child(NodeNames.CHAT).child(chatUserId).child(currentUserId);
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String currentCount="0";
+                if(snapshot.child(NodeNames.UNREAD_COUNT).getValue()!=null){
+                    currentCount=snapshot.child(NodeNames.UNREAD_COUNT).getValue().toString();
+                }
+
+                Map chatMap = new HashMap();
+                chatMap.put(NodeNames.TIME_STAMP, ServerValue.TIMESTAMP);
+                chatMap.put(NodeNames.UNREAD_COUNT, Integer.valueOf(currentCount)+1);
+
+                Map chatUserMap = new HashMap();
+                chatUserMap.put(NodeNames.CHAT+"/"+chatUserId+"/"+currentUserId, chatMap);
+
+                rootRef.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        if(error!=null){
+                            Toast.makeText(context, context.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 }

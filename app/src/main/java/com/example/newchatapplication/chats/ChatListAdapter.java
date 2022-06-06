@@ -66,6 +66,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
 //            });
 //        }
 
+        if(!chatListModel.getUnreadMessageCount().equals("0")){
+            holder.getUnreadCount().setVisibility(View.VISIBLE);
+            holder.getUnreadCount().setText(chatListModel.getUnreadMessageCount());
+        }else{
+            holder.getUnreadCount().setVisibility(View.VISIBLE);
+            holder.getUnreadCount().setText("0");
+        }
 
         if(chatListModel.getPhotoFileName()!= null){
             Glide.with(mContext)

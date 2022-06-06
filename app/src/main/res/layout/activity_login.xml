@@ -11,11 +11,9 @@
     tools:context=".login.LoginActivity">
 
     <include
-
         layout="@layout/custom_progreessbar"
         android:visibility="gone"
         android:id="@+id/progressbarView"
-
         />
 
     <RelativeLayout
@@ -43,14 +41,11 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="15dp"
             android:layout_toEndOf="@+id/icon"
-
             android:gravity="center"
             android:text="Chat Application"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,7 +63,6 @@
                     android:layout_marginStart="9dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="9dp"
-
                     android:textColorHint="@color/white"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -95,7 +89,6 @@
                         android:id="@+id/loginPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:ems="8"
                         android:hint="Enter Your Password"
                         android:inputType="textPassword" />

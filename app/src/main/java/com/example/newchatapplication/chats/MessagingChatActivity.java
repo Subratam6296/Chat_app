@@ -64,6 +64,7 @@ import java.io.OutputStream;
 import java.security.Permission;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MessagingChatActivity extends AppCompatActivity {
 
@@ -95,6 +96,8 @@ public class MessagingChatActivity extends AppCompatActivity {
     private DatabaseReference messageReference;
 
     private ChildEventListener childEventListener;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +145,7 @@ public class MessagingChatActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefreshMessage);
 
 
+
 //Cab data
         tvUserName.setText(userName);
         if(!TextUtils.isEmpty(photoNameUser)){
@@ -176,6 +180,7 @@ public class MessagingChatActivity extends AppCompatActivity {
 
 
         loadMessage();
+        rootRefrence.getReference().child(NodeNames.CHAT).child(currentUserId).child(chatUserId).setValue(0);
         recyclerViewMessage.scrollToPosition(messagesList.size()-1);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -301,6 +306,7 @@ public class MessagingChatActivity extends AppCompatActivity {
 
                             String tittle = "New Message";
                             Util.sendNotification(MessagingChatActivity.this, msg, tittle, chatUserId);
+                            Util.updateChatDetails(MessagingChatActivity.this,currentUserId,chatUserId);
                         }
                     }
                 });
