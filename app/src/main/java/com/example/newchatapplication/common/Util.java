@@ -159,7 +159,7 @@ public class Util {
 
     }
 
-    public static void updateChatDetails(Context context, String currentUserId, String chatUserId){
+    public static void updateChatDetails(Context context, String currentUserId, String chatUserId,final String lastMessage){
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference chatRef = rootRef.child(NodeNames.CHAT).child(chatUserId).child(currentUserId);
@@ -176,6 +176,9 @@ public class Util {
                 Map chatMap = new HashMap();
                 chatMap.put(NodeNames.TIME_STAMP, ServerValue.TIMESTAMP);
                 chatMap.put(NodeNames.UNREAD_COUNT, Integer.valueOf(currentCount)+1);
+                chatMap.put(NodeNames.LAST_MESSAGE, lastMessage);
+                chatMap.put(NodeNames.LAST_MESSAGE_TIME,ServerValue.TIMESTAMP);
+
 
                 Map chatUserMap = new HashMap();
                 chatUserMap.put(NodeNames.CHAT+"/"+chatUserId+"/"+currentUserId, chatMap);
@@ -185,6 +188,8 @@ public class Util {
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         if(error!=null){
                             Toast.makeText(context, context.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(context, "Details Updated Successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

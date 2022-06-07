@@ -180,7 +180,7 @@ public class MessagingChatActivity extends AppCompatActivity {
 
 
         loadMessage();
-        rootRefrence.getReference().child(NodeNames.CHAT).child(currentUserId).child(chatUserId).setValue(0);
+        rootRefrence.getReference().child(NodeNames.CHAT).child(currentUserId).child(chatUserId).child(NodeNames.UNREAD_COUNT).setValue("0");
         recyclerViewMessage.scrollToPosition(messagesList.size()-1);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -306,7 +306,7 @@ public class MessagingChatActivity extends AppCompatActivity {
 
                             String tittle = "New Message";
                             Util.sendNotification(MessagingChatActivity.this, msg, tittle, chatUserId);
-                            Util.updateChatDetails(MessagingChatActivity.this,currentUserId,chatUserId);
+                            Util.updateChatDetails(MessagingChatActivity.this,currentUserId,chatUserId,msg);
                         }
                     }
                 });

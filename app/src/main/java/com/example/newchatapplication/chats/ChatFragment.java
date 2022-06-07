@@ -142,11 +142,14 @@ public class ChatFragment extends Fragment {
 
         final String lastMessage, lastMessageTime,unreadCount;
 
-        lastMessage = "";
-        lastMessageTime = "";
+        lastMessage = dataSnapshot.child(NodeNames.LAST_MESSAGE).getValue()==null?"":
+                dataSnapshot.child(NodeNames.LAST_MESSAGE).getValue().toString();
+
+        lastMessageTime = dataSnapshot.child(NodeNames.LAST_MESSAGE_TIME).getValue()==null?"":
+                dataSnapshot.child(NodeNames.LAST_MESSAGE_TIME).getValue().toString();
+
         unreadCount = dataSnapshot.child(NodeNames.UNREAD_COUNT).getValue()==null?
                 "0": dataSnapshot.child(NodeNames.UNREAD_COUNT).getValue().toString();
-
 
 
         databaseReferenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {

@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="@string/send_frnd_req"
             android:layout_gravity="center"
-            android:textColor="@color/write_color"
+            android:textColor="@color/white"
             />
 
         <Button
@@ -51,7 +51,7 @@
             android:visibility="gone"
 
             android:layout_gravity="center"
-            android:textColor="@color/write_color"
+            android:textColor="@color/white"
             />
 
         <ProgressBar

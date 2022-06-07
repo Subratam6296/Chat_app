@@ -70,8 +70,24 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
             holder.getUnreadCount().setVisibility(View.VISIBLE);
             holder.getUnreadCount().setText(chatListModel.getUnreadMessageCount());
         }else{
-            holder.getUnreadCount().setVisibility(View.VISIBLE);
+           // holder.getUnreadCount().setVisibility(View.VISIBLE);
             holder.getUnreadCount().setText("0");
+        }
+
+        if(!chatListModel.getLastMessage().equals("")){
+            //holder.getLastMessage().setVisibility(View.VISIBLE);
+            holder.getLastMessage().setText(chatListModel.getLastMessage());
+        }else{
+            holder.getLastSeenTime().setVisibility(View.GONE);
+           // holder.getUnreadCount().setText("0");
+        }
+
+        if(!chatListModel.getLastSeenTime().equals("")){
+            holder.getLastSeenTime().setVisibility(View.VISIBLE);
+            holder.getLastSeenTime().setText(chatListModel.getLastSeenTime());
+        }else{
+            holder.getLastSeenTime().setVisibility(View.GONE);
+            // holder.getUnreadCount().setText("0");
         }
 
         if(chatListModel.getPhotoFileName()!= null){
