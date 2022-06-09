@@ -145,6 +145,10 @@ public class MessagingChatActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefreshMessage);
 
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        rootRefrence = FirebaseDatabase.getInstance();
+        currentUserId = firebaseAuth.getCurrentUser().getUid();
+        rootRefrence.getReference().child(NodeNames.CHAT).child(currentUserId).child(chatUserId).child(NodeNames.UNREAD_COUNT).setValue("0");
 
 //Cab data
         tvUserName.setText(userName);
@@ -173,14 +177,8 @@ public class MessagingChatActivity extends AppCompatActivity {
         recyclerViewMessage.setAdapter(messageAdapter);
 
 
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        rootRefrence = FirebaseDatabase.getInstance();
-        currentUserId = firebaseAuth.getCurrentUser().getUid();
-
-
         loadMessage();
-        rootRefrence.getReference().child(NodeNames.CHAT).child(currentUserId).child(chatUserId).child(NodeNames.UNREAD_COUNT).setValue("0");
+
         recyclerViewMessage.scrollToPosition(messagesList.size()-1);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -722,6 +720,9 @@ public class MessagingChatActivity extends AppCompatActivity {
 
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        rootRefrence.getReference().child(NodeNames.CHAT).child(currentUserId).child(chatUserId).child(NodeNames.UNREAD_COUNT).setValue("0");
+        super.onBackPressed();
+    }
 }

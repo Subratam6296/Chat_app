@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.newchatapplication.R;
 import com.example.newchatapplication.common.Constants;
+import com.example.newchatapplication.common.Util;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -70,8 +71,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
             holder.getUnreadCount().setVisibility(View.VISIBLE);
             holder.getUnreadCount().setText(chatListModel.getUnreadMessageCount());
         }else{
-           // holder.getUnreadCount().setVisibility(View.VISIBLE);
-            holder.getUnreadCount().setText("0");
+            holder.getUnreadCount().setVisibility(View.INVISIBLE);
         }
 
         if(!chatListModel.getLastMessage().equals("")){
@@ -84,7 +84,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
 
         if(!chatListModel.getLastSeenTime().equals("")){
             holder.getLastSeenTime().setVisibility(View.VISIBLE);
-            holder.getLastSeenTime().setText(chatListModel.getLastSeenTime());
+            holder.getLastSeenTime().setText(Util.getTimeAgo(Long.parseLong(chatListModel.getLastSeenTime())));
         }else{
             holder.getLastSeenTime().setVisibility(View.GONE);
             // holder.getUnreadCount().setText("0");

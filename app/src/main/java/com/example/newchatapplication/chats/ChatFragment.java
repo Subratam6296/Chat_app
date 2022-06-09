@@ -108,6 +108,7 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                updateList(snapshot,false, snapshot.getKey());
 
             }
 
@@ -151,7 +152,6 @@ public class ChatFragment extends Fragment {
         unreadCount = dataSnapshot.child(NodeNames.UNREAD_COUNT).getValue()==null?
                 "0": dataSnapshot.child(NodeNames.UNREAD_COUNT).getValue().toString();
 
-
         databaseReferenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -166,14 +166,13 @@ public class ChatFragment extends Fragment {
                 if(isNew){
                     chatListModelArrayList.add(chatListModel);
                     usersIdList.add(userId);
+                    //adapter.notify();
+
                 }else{
                     int indexOfClickedUser = usersIdList.indexOf(userId);
                     chatListModelArrayList.set(indexOfClickedUser, chatListModel);
-
                 }
-
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -182,8 +181,5 @@ public class ChatFragment extends Fragment {
                 Toast.makeText(getActivity(), getActivity().getString(R.string.failed_to_fetch_chatlist, error.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
-
 }
