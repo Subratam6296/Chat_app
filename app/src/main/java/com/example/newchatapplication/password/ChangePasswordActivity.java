@@ -1,8 +1,10 @@
 package com.example.newchatapplication.password;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +26,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.crimson)));
+        bar.setDisplayShowTitleEnabled(false);  // required to force redraw, without, gray color
+        bar.setDisplayShowTitleEnabled(true);
         chngPswdedt = findViewById(R.id.edtChngPassword);
         confChngPswdedt = findViewById(R.id.edtChngCnfrmPassword);
 

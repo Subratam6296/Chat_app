@@ -2,10 +2,12 @@ package com.example.newchatapplication.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -62,7 +64,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.crimson)));
+        bar.setDisplayShowTitleEnabled(false);  // required to force redraw, without, gray color
+        bar.setDisplayShowTitleEnabled(true);
         emailView = findViewById(R.id.edtEmailTxt);
         edtUsername = findViewById(R.id.editUserName);
         edtProfilePic = findViewById(R.id.edtProfileViewCircularImage);

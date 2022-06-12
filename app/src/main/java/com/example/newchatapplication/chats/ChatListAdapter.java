@@ -2,7 +2,6 @@ package com.example.newchatapplication.chats;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.newchatapplication.R;
 import com.example.newchatapplication.common.Constants;
 import com.example.newchatapplication.common.Util;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -78,7 +74,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
             //holder.getLastMessage().setVisibility(View.VISIBLE);
             holder.getLastMessage().setText(chatListModel.getLastMessage());
         }else{
-            holder.getLastSeenTime().setVisibility(View.GONE);
+            holder.getLastMessage().setVisibility(View.GONE);
            // holder.getUnreadCount().setText("0");
         }
 
@@ -86,7 +82,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
             holder.getLastSeenTime().setVisibility(View.VISIBLE);
             holder.getLastSeenTime().setText(Util.getTimeAgo(Long.parseLong(chatListModel.getLastSeenTime())));
         }else{
-            holder.getLastSeenTime().setVisibility(View.GONE);
+            holder.getLastSeenTime().setVisibility(View.VISIBLE);
             // holder.getUnreadCount().setText("0");
         }
 

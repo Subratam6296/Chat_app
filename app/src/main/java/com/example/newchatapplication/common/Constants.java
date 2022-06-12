@@ -2,6 +2,10 @@ package com.example.newchatapplication.common;
 
 public class Constants {
 
+    public static final String ONLINE = "Online";
+    public static final String TYPING_STOPPED = "0";
+    public static final String TYPING_STARTED = "1";
+    public static final String STATUS_TYPING = "typing...";
     public static String IMAGE_FOLDER = "images";
     public static String MESSAGE_IMAGE_FOLDER = "message_images";
     public static String MESSAGE_VIDEO_FOLDER = "message_videos";
