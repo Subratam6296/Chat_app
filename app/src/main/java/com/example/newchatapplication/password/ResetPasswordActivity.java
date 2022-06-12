@@ -1,8 +1,10 @@
 package com.example.newchatapplication.password;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -28,7 +30,10 @@ public class ResetPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
-
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.crimson)));
+        bar.setDisplayShowTitleEnabled(false);  // required to force redraw, without, gray color
+        bar.setDisplayShowTitleEnabled(true);
         llresetMsgView = findViewById(R.id.llMessageReset);
         llresetView = findViewById(R.id.llresetView);
 

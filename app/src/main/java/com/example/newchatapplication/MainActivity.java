@@ -1,6 +1,7 @@
 package com.example.newchatapplication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -15,10 +17,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.newchatapplication.chats.ChatFragment;
+import com.example.newchatapplication.common.NodeNames;
 import com.example.newchatapplication.requests.ReceivedFriendRequestFragment;
 import com.example.newchatapplication.findfrnd.FindFriendFragment;
 import com.example.newchatapplication.profile.ProfileActivity;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tabLayout = findViewById(R.id.tabMain);
         viewPager2 = findViewById(R.id.viewPagerMain);
+        DatabaseReference userDatabaseRef = FirebaseDatabase.getInstance().getReference().child(NodeNames.USERS).child(FirebaseAuth.getInstance().getUid());
+        userDatabaseRef.child(NodeNames.ONLINE).setValue("true");
+        userDatabaseRef.child(NodeNames.ONLINE).onDisconnect().setValue("false");
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.crimson)));
+        bar.setDisplayShowTitleEnabled(false);  // required to force redraw, without, gray color
+        bar.setDisplayShowTitleEnabled(true);
+
         setViewPager();
 
     }

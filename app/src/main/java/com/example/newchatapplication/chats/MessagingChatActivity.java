@@ -19,7 +19,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -52,6 +54,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -71,7 +74,7 @@ public class MessagingChatActivity extends AppCompatActivity {
     private LinearLayout llChat,llFileUploadingStatus;
     private EditText entrMsg;
     private ImageView sendIv,attachIv, ivProfile;
-    private TextView tvUserName;
+    private TextView tvUserName,tvUserStatus;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase rootRefrence;
@@ -125,6 +128,7 @@ public class MessagingChatActivity extends AppCompatActivity {
             ViewGroup viewGrp = (ViewGroup) getLayoutInflater().inflate(R.layout.custom_action_bar, null);
             ivProfile = viewGrp.findViewById(R.id.ivProfileCab);
             tvUserName = viewGrp.findViewById(R.id.tvUserNameCab);
+            tvUserStatus = viewGrp.findViewById(R.id.tvUserStatusCab);
 
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -152,6 +156,27 @@ public class MessagingChatActivity extends AppCompatActivity {
 
 //Cab data
         tvUserName.setText(userName);
+        DatabaseReference userSpecificRef = rootRefrence.getReference().child(NodeNames.USERS).child(chatUserId);
+
+        userSpecificRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                     String status = " ";
+                     if(snapshot.child(NodeNames.ONLINE).getValue()!=null){
+                         status = snapshot.child(NodeNames.ONLINE).getValue().toString();
+                     }
+                     if(status.equals("true")){
+                         tvUserStatus.setText(Constants.ONLINE);
+                     }else{
+                         tvUserStatus.setText(" ");
+                     }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         if(!TextUtils.isEmpty(photoNameUser)){
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(Constants.IMAGE_FOLDER).child(photoNameUser);
 
@@ -261,6 +286,59 @@ public class MessagingChatActivity extends AppCompatActivity {
                 if(inputMethodManager!= null){
                     inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
                 }
+
+            }
+        });
+
+        entrMsg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference()
+                        .child(NodeNames.CHAT)
+                        .child(currentUserId)
+                        .child(chatUserId);
+
+                if(editable.toString().matches("")){
+                    currentUserRef.child(NodeNames.TYPING).setValue(Constants.TYPING_STOPPED);
+                }else{
+                    currentUserRef.child(NodeNames.TYPING).setValue(Constants.TYPING_STARTED);
+                }
+
+                DatabaseReference chatUserRef = FirebaseDatabase.getInstance().getReference()
+                        .child(NodeNames.CHAT)
+                        .child(chatUserId)
+                        .child(currentUserId);
+
+                chatUserRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child(NodeNames.TYPING).getValue()!=null){
+                            String typingStatus = snapshot.child(NodeNames.TYPING).getValue().toString();
+                            if(typingStatus.equals(Constants.TYPING_STARTED)){
+                                tvUserStatus.setText(Constants.STATUS_TYPING);
+                            }else{
+                                tvUserStatus.setText(Constants.ONLINE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
             }
         });
