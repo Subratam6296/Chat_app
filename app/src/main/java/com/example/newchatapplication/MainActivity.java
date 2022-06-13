@@ -46,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
         bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.crimson)));
         bar.setDisplayShowTitleEnabled(false);  // required to force redraw, without, gray color
         bar.setDisplayShowTitleEnabled(true);
+
         bar.setElevation(0);
+        //Saibal Panja
+
 
         setViewPager();
 
