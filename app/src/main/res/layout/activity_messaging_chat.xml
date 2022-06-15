@@ -24,9 +24,9 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="2dp"
         android:id="@+id/swipeRefreshMessage"
-        app:layout_constraintBottom_toTopOf="@+id/sentMessageChatLL"
+        app:layout_constraintBottom_toTopOf="@+id/smartReplyll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fileProgressLL">
@@ -39,6 +39,23 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+
+<LinearLayout
+    android:id="@+id/smartReplyll"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toTopOf="@id/sentMessageChatLL">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/cgSmartReply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.google.android.material.chip.ChipGroup>
+</LinearLayout>
 
     <LinearLayout
         android:id="@+id/sentMessageChatLL"

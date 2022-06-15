@@ -13,9 +13,12 @@
     <color name="write_color2">#F5FFFA</color>
     <color name="fancy">#C0C0C0</color>
     <color name="accept">#228B22</color>
-    <color name="sendmsg">#A829D5</color>
+    <color name="sendmsg">#F5532A</color>
     <color name="receivedmsg">#1DBA05</color>
 
     <color name="circle_color">#E60E39</color>
     <color name="crimson">#DC143C</color>
+    <color name="material">#F26F37</color>
+    <color name="material1">#FFC1A7</color>
+
 </resources>

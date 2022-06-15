@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.crimson)));
         bar.setDisplayShowTitleEnabled(false);  // required to force redraw, without, gray color
         bar.setDisplayShowTitleEnabled(true);
+
         chngPswdedt = findViewById(R.id.edtChngPassword);
         confChngPswdedt = findViewById(R.id.edtChngCnfrmPassword);
 
@@ -60,13 +62,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     Toast.makeText(ChangePasswordActivity.this, getString(R.string.updt_pswd), Toast.LENGTH_SHORT).show();
                                 }else {
-                                    Toast.makeText(ChangePasswordActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                    Log.d("reset",task.getException().toString());
+                                    Toast.makeText(ChangePasswordActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-
                     }
-
                 }
             }
         });

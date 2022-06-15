@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         bar.setDisplayShowTitleEnabled(true);
 
         bar.setElevation(0);
-        //Saibal Panja
-
 
         setViewPager();
 
