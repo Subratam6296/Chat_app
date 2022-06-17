@@ -124,14 +124,15 @@ public class Util {
                             }
                         };
 
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,fcmApiUrl, notification, successListener, errorListener) {
+
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(fcmApiUrl, notification, successListener, errorListener) {
 
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
 
                                 Map<String, String> params = new HashMap<>();
                                 params.put("Authorization", "key=" + Constants.FCM_SERVER_KEY);
-                                //params.put("Sender","id="+Constants.FCM_SENDER_ID);
+                                params.put("Sender","id="+Constants.FCM_SENDER_ID);
                                 params.put("Content-Type", contentType);
 
                                 return params;
@@ -142,7 +143,7 @@ public class Util {
                         requestQueue.add(jsonObjectRequest);
 
                     } catch (JSONException e) {
-
+                        Toast.makeText(context, "Failed To send notification", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -215,11 +216,11 @@ public class Util {
         time *= 1000;
 
         long now = System.currentTimeMillis();
-
+/*
         if(time>now || time<=0){
             return "";
         }
-
+*/
         final long diff = now - time;
 
         if(diff<MINUTE_MILLIS){

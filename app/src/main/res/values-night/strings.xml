@@ -73,5 +73,6 @@
     <string name="failed_to_download">Failed to download:%1$s</string>
     <string name="share_with">Share with..</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="now">now</string>
 
 </resources>

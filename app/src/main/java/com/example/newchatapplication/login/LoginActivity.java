@@ -1,6 +1,7 @@
 package com.example.newchatapplication.login;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,6 +43,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ActionBar bar = getSupportActionBar();
+        bar.setTitle(" ");
+        bar.setElevation(0);
+
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -51,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         signUp = findViewById(R.id.signUp);
         frgtPswd = findViewById(R.id.forgetPaswrd);
         customProgressbar = findViewById(R.id.progressbarView);
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,23 +105,21 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
 
-        FirebaseInstallations.getInstance().getToken(false).addOnSuccessListener(new OnSuccessListener<InstallationTokenResult>() {
-            @Override
-            public void onSuccess(InstallationTokenResult installationTokenResult) {
-                Util.updateDeviceTokken(LoginActivity.this, installationTokenResult.getToken());
-            }
-        });
-
         if(mAuth.getCurrentUser()!=null){
+
+            FirebaseInstallations.getInstance().getToken(false).addOnSuccessListener(new OnSuccessListener<InstallationTokenResult>() {
+                @Override
+                public void onSuccess(InstallationTokenResult installationTokenResult) {
+                    Util.updateDeviceTokken(LoginActivity.this, installationTokenResult.getToken());
+                }
+            });
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
-
 
     }
 }

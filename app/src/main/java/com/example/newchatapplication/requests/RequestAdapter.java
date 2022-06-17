@@ -116,7 +116,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestA
                                                             if(task.isSuccessful()){
 
                                                                 String tittle = "New Friend Request Accepted";
-                                                                String message = "Friend Accepted by "+ currentUser.getDisplayName();
+                                                                String message = "Friend request Accepted by "+ currentUser.getDisplayName();
 
                                                                 Util.sendNotification(mContext,message,tittle,userId);
                                                                 holder.getReceivedFrndReqPb().setVisibility(View.GONE);

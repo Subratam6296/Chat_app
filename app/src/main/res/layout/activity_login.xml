@@ -63,14 +63,19 @@
                     android:layout_marginStart="9dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="9dp"
+                    app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
+                    app:counterTextColor="@color/white"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/loginUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:ems="18"
+
+
                         android:hint="Enter Your Email Id here" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -82,6 +87,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="9dp"
                     android:textColorHint="@color/white"
+                    app:hintTextColor="@color/white"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:passwordToggleEnabled="true">
 
@@ -90,6 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="8"
+
                         android:hint="Enter Your Password"
                         android:inputType="textPassword" />
 

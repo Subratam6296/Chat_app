@@ -20,8 +20,6 @@
         android:layout_height="match_parent"
         android:id="@+id/viewPagerMain"
         android:elevation="0dp"
-
-
         android:layout_margin="4dp"/>
 
 </LinearLayout>

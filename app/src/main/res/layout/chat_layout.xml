@@ -68,12 +68,12 @@
             android:id="@+id/lastSeenTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:gravity="center"
             android:layout_marginStart="5dp"
-            tools:text="9:00"
-
-            android:textSize="10sp" />
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="10sp"
+            android:visibility="visible"
+            tools:text="9:00" />
 
     </LinearLayout>
 

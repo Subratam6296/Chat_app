@@ -833,6 +833,7 @@ public class MessagingChatActivity extends AppCompatActivity {
                                         for(SmartReplySuggestion suggestion: smartReplySuggestionResult.getSuggestions()){
 
                                             String replyText = suggestion.getText();
+                                            Log.d("smartReply", replyText);
 
                                             Chip chip = new Chip(MessagingChatActivity.this);
 
@@ -865,9 +866,7 @@ public class MessagingChatActivity extends AppCompatActivity {
                                                     sendMessage(view.getTag().toString(),Constants.MESSAGE_TYPE_TEXT,newMessageId);
                                                 }
                                             });
-
                                             smartRepliesCgp.addView(chip);
-
                                         }
                                     }
                                 }

@@ -2,6 +2,7 @@ package com.example.newchatapplication.chats;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,11 +80,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         }
 
         if(!chatListModel.getLastSeenTime().equals("")){
-            holder.getLastSeenTime().setVisibility(View.VISIBLE);
+
             holder.getLastSeenTime().setText(Util.getTimeAgo(Long.parseLong(chatListModel.getLastSeenTime())));
+            //holder.getLastSeenTime().setText(chatListModel.getLastSeenTime());
+            Log.d("timestamp",Util.getTimeAgo(Long.parseLong(chatListModel.getLastSeenTime())));
         }else{
-            holder.getLastSeenTime().setVisibility(View.VISIBLE);
-            // holder.getUnreadCount().setText("0");
+
+            holder.getUnreadCount().setText(R.string.now);
         }
 
         if(chatListModel.getPhotoFileName()!= null){

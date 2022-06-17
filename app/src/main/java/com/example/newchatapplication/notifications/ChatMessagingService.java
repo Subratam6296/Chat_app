@@ -53,7 +53,7 @@ public class ChatMessagingService extends FirebaseMessagingService {
         Uri defaultNotificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel channel = new NotificationChannel(Constants.CHANNEL_ID,
                     Constants.CHANNEL_NAME,
@@ -62,7 +62,7 @@ public class ChatMessagingService extends FirebaseMessagingService {
             channel.setDescription(Constants.CHANNEL_DESC);
             notificationManager.createNotificationChannel(channel);
             builder = new NotificationCompat.Builder(this, Constants.CHANNEL_ID);
-            builder.setChannelId(Constants.CHANNEL_ID);
+            //builder.setChannelId(Constants.CHANNEL_ID);
 
         } else {
             builder = new NotificationCompat.Builder(this);
@@ -71,7 +71,7 @@ public class ChatMessagingService extends FirebaseMessagingService {
 
         builder.setSmallIcon(R.drawable.chat);
         builder.setContentTitle(tittle);
-      //  builder.setColor(getResources().getColor(R.color.theme_color));
+        builder.setColor(getResources().getColor(R.color.theme_color));
         builder.setAutoCancel(true);
         builder.setSound(defaultNotificationSoundUri);
         builder.setContentIntent(pendingIntent);
