@@ -113,7 +113,8 @@ public class Util {
                         Response.Listener successListener = new Response.Listener() {
                             @Override
                             public void onResponse(Object response) {
-                                Toast.makeText(context, context.getString(R.string.notificayion_sent), Toast.LENGTH_SHORT).show();
+                                Log.d("notification","Notification sent");
+                                //Toast.makeText(context, context.getString(R.string.notificayion_sent), Toast.LENGTH_SHORT).show();
                             }
                         };
 
@@ -141,6 +142,7 @@ public class Util {
 
                         RequestQueue requestQueue = Volley.newRequestQueue(context);
                         requestQueue.add(jsonObjectRequest);
+                        Log.d("response",jsonObjectRequest.toString());
 
                     } catch (JSONException e) {
                         Toast.makeText(context, "Failed To send notification", Toast.LENGTH_SHORT).show();
@@ -190,7 +192,8 @@ public class Util {
                         if(error!=null){
                             Toast.makeText(context, context.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(context, "Details Updated Successfully", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, "Details Updated Successfully", Toast.LENGTH_SHORT).show();
+                            Log.d("updated","Details updated Succesfully");
                         }
                     }
                 });
@@ -213,14 +216,16 @@ public class Util {
         final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
         final int DAY_MILLIS = 24*HOUR_MILLIS;
 
-        time *= 1000;
+        if (time < 1000000000000L) {
+            time *= 1000;
+        }
 
         long now = System.currentTimeMillis();
-/*
+
         if(time>now || time<=0){
             return "";
         }
-*/
+
         final long diff = now - time;
 
         if(diff<MINUTE_MILLIS){

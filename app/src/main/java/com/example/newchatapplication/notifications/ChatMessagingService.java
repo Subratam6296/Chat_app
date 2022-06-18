@@ -38,6 +38,7 @@ public class ChatMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        Log.d("test_trigger","Saibal Panja");
 
         String tittle = remoteMessage.getData().get(Constants.NOTIFICATION_TITTLE);
         String message = remoteMessage.getData().get(Constants.NOTIFICATION_MESSAGE);
@@ -77,7 +78,7 @@ public class ChatMessagingService extends FirebaseMessagingService {
         builder.setContentIntent(pendingIntent);
         builder.setContentText(message);
 
-        notificationManager.notify(300,
+        notificationManager.notify(0,
                 builder.build());
 
 
